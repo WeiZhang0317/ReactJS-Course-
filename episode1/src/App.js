@@ -1,16 +1,26 @@
-// Profile Component Example:
-// Name: John Doe
-// Age: 30
-// Profession: Software Engineer
-
 import "./App.css";
 
-const age = 15;
-
-age >= 18 ? console.log("HEHE") : console.log("NOT HEHE");
-
 function App() {
-  return <div className="App"></div>;
+  const Planets = (props) => {
+    return <div>{props.name}</div>;
+  };
+
+  const planets = [
+    { name: "Mars", isGasPlanet: false },
+    { name: "Earth", isGasPlanet: false },
+    { name: "Jupiter", isGasPlanet: true },
+    { name: "Venus", isGasPlanet: false },
+    { name: "Neptune", isGasPlanet: true },
+    { name: "Uranus", isGasPlanet: true },
+  ];
+
+  return (
+    <div className="App">
+      {planets.map((planet, key) =>
+        planet.isGasPlanet ? <Planets key={key} name={planet.name} /> : null
+      )}
+    </div>
+  );
 }
 
 export default App;
