@@ -1,26 +1,19 @@
 import "./App.css";
+import {useState} from "react";
 
 function App() {
-  const Planets = (props) => {
-    return <div>{props.name}</div>;
-  };
 
-  const planets = [
-    { name: "Mars", isGasPlanet: false },
-    { name: "Earth", isGasPlanet: false },
-    { name: "Jupiter", isGasPlanet: true },
-    { name: "Venus", isGasPlanet: false },
-    { name: "Neptune", isGasPlanet: true },
-    { name: "Uranus", isGasPlanet: true },
-  ];
+  const[inputValue,setInputValue]=useState("")
 
-  return (
-    <div className="App">
-      {planets.map((planet, key) =>
-        planet.isGasPlanet ? <Planets key={key} name={planet.name} /> : null
-      )}
-    </div>
+  //inital value is the empty string
+  //change inputValue by using setInputValue function
+  
+  
+  return(
+  <div className="App">
+  <button>show/hide</button>
+  <h1>my name is o</h1>
+  </div>
   );
-}
-
-export default App;
+  }
+  export default App;
