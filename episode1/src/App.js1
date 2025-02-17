@@ -1,0 +1,48 @@
+// 导入React核心库和必要Hook
+import "./App.css";
+import { useState } from "react"; // 解构导入useState Hook
+
+// 函数组件定义（现代React推荐使用函数组件）
+function App() {
+  // ========== 状态管理 ==========
+  // 使用useState Hook创建组件状态
+  // textColor：状态变量（当前文本颜色）
+  // setTextColor：状态更新函数（唯一合法的修改方式）
+  // "red"：状态初始值
+  const [textColor, setTextColor] = useState("red");
+
+  // ========== 事件处理 ==========
+  // 点击按钮时触发的回调函数
+  const toggleColor = () => {
+    // 使用函数式更新确保获取最新状态值（最佳实践）
+    // 三元运算符切换颜色值
+    setTextColor((prevColor) => 
+      prevColor === "red" ? "blue" : "red"
+    );
+  };
+
+  // ========== JSX渲染 ==========
+  return (
+    <div className="App">
+      {/* 事件绑定注意事项：必须传递函数引用而非函数调用结果 */}
+      <button 
+        onClick={toggleColor}  // 正确：传递函数引用
+        // onClick={() => toggleColor()} // 等效写法（必要时可传参）
+        // onClick={toggleColor()}      // 错误！会立即执行
+      >
+        Change Color
+      </button>
+
+      {/* 动态样式绑定：使用内联样式对象 */}
+      <h1 style={{ 
+        color: textColor,      // 使用状态值
+        transition: "all 0.3s" // 添加过渡动画（CSS特性演示）
+      }}>
+        My name is O
+      </h1>
+    </div>
+  );
+}
+
+// 导出组件（必须）
+export default App;
