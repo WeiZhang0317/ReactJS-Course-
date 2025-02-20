@@ -1,10 +1,12 @@
 import "./App.css";
 import { useState } from "react";
-import { Task } from "./Task";
+import {Task} from "./Task.js"
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const [textColor, setTextColor] = useState("red"); 
+
 
   const handleChange = (event) => {
     setNewTask(event.target.value);
@@ -14,7 +16,7 @@ function App() {
     const task = {
       id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
       taskName: newTask,
-      completed: false,
+      complete:false
     };
     setTodoList(task.taskName !== "" ? [...todoList, task] : todoList);
   };
@@ -22,7 +24,6 @@ function App() {
   const deleteTask = (id) => {
     setTodoList(todoList.filter((task) => task.id !== id));
   };
-
   const completeTask = (id) => {
     setTodoList(
       todoList.map((task) => {
@@ -34,6 +35,18 @@ function App() {
       })
     );
   };
+  
+ const cancelCompleteTask =  (id) => {
+  setTodoList(
+    todoList.map((task) => {
+      if (task.id === id) {
+        return { ...task, completed: false };
+      } else {
+        return task;
+      }
+    })
+  );
+};
 
   return (
     <div className="App">
@@ -45,17 +58,18 @@ function App() {
         {todoList.map((task) => {
           return (
             <Task
-              taskName={task.taskName}
-              id={task.id}
-              completed={task.completed}
-              deleteTask={deleteTask}
-              completeTask={completeTask}
-            />
+            key={task.id}
+            task={task}
+            deleteTask={deleteTask}
+            completeTask={completeTask}
+            cancelCompleteTask={cancelCompleteTask}
+          />
+          
           );
         })}
       </div>
     </div>
   );
-}
 
+}
 export default App;
