@@ -1,27 +1,27 @@
+import "./App.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
-  const [catFact, setCatFact] = useState("");
-
-  const fetchCatFact = () => {
-    axios
-      .get("https://catfact.ninja/fact")
+  const[name, setName]=useState("")
+  const[predictAge,setPredictAge]=useState(null);
+  const fetchData = () => {
+    axios.get(`https://api.agify.io/?name=${name}`)
       .then((res) => {
-        setCatFact(res.data.fact);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+        setPredictAge(res.data);  // 只存 `age`，而不是整个对象
+      });
   };
-  // 使用 useEffect 只在组件挂载时执行一次
-  useEffect(() => {
-    fetchCatFact();
-  }, []); // 依赖数组为空，确保只运行一次
-
+  
   return (
     <div className="App">
-      <button onClick={fetchCatFact}>Generate Cat Fact</button>
-      <p>{catFact}</p>
+      <input placeholder="eg,perdo"
+      onChange={(event)=>{
+        setName(event.target.value);
+      }}></input>
+      <button onClick={fetchData}>Predict Age</button>
+      <h1>Predict Age: {predictAge ? predictAge.age : "N/A"}</h1>
     </div>
   );
 }
+
 export default App;
